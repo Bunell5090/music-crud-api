@@ -26,5 +26,14 @@ class MusicController < ApplicationController
     music.song_title = params["song_title"] || music.song_title
     music.album = params["album"] || music.album
     music.year = params["year"] || music.year
+    music.save
+    render json: music
+  end
+
+  def destroy
+    music_id = params["id"]
+    music - Music.find_by(id: music_id)
+    music.destroy
+    render json: {message: "Song successfully destroyed!"}
   end
 end
